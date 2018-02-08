@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+  <!-- css files -->
+  <link   rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.css' %}"/> 
+
+  <!-- JS files  -->
+  <script type="text/javascript" src="{% load static from staticfiles %}{% static 'js/jquery-1.8.2.min.js' %}"></script>  
+  <script type="text/javascript" src="{% load static from staticfiles %}{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% load static from staticfiles %}{% static 'js/index.js' %}"></script>
+  <style type="text/css">
+    #example_wrapper {
+    margin-top: 10px;
+    }
+  </style>
+</head>
+<a href="/admin/"><button>Admin</button></a>
+<body>  
+  <table id="example" style="top">
+    <thead>
+      <tr>
+        <th>Movie Name</th>
+        <th>Director</th>
+        <th>IMDB Score</th>
+        <th>Popularity</th>
+        <th>Genre</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if movies %}
+        {% for movie in movies %}
+          <tr>
+            <td>{{ movie.movie_name }}</td>
+            <td>{{ movie.director_name }}</td>
+            <td>{{ movie.imdb_score }}</td>
+            <td>{{ movie.popularity_score }}</td>
+            <td>
+              {% for i in movie.genre_type.all %}
+                <li>{{ i.title }}</li>
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor%}
+      {% endif %} 
+    </tbody>
+  </table>
+</body>
+</html>
